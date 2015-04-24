@@ -1,0 +1,22 @@
+{
+	"name" : "silverstripe-modules/versionedmodeladmin",
+	"description" : "Extension for versioned model admin",
+	"type" : "silverstripe-module",
+	"keywords" : [
+		"silverstripe",
+		"versioned",
+		"modeladmin"
+	],
+	"authors" : [{
+			"name" : "Stewart Wilson",
+			"email" : "stewart.wilson@internetrix.com.au"
+		}
+	],
+	"require" : {
+		"silverstripe/framework" : "~3.1"
+	},
+	"extra" : {
+		"installer-name" : "versionedmodeladmin"
+	},
+	"minimum-stability" : "dev"
+}
