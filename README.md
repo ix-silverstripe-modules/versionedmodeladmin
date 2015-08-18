@@ -16,7 +16,8 @@ SilverStripe 3.1~
 
 ## Dependencies
 
-None
+The VersionedGridFieldItemRequestExtension  extension will only be applied if the Better Buttons module exists. 
+This is because VersionedGridFieldItemRequestExtension introduces form actions that are defined in the betterbuttons extension GridFieldBetterButtonsItemRequest
 
 ## Example
 

@@ -1,3 +1,8 @@
 ---
 Name: versionedmodeladmin
+Only:
+    moduleexists: betterbuttons
 ---
+GridFieldDetailForm_ItemRequest:
+  extensions:
+    - VersionedGridFieldItemRequestExtension
