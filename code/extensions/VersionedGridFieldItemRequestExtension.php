@@ -13,34 +13,38 @@ class VersionedGridFieldItemRequestExtension extends Extension {
 	public function updateItemEditForm($form) {
 
 		$record 	= $form->getRecord();
-		$actions 	= $form->Actions();
-			
-		foreach ($actions as $action){
-			$actions->remove($action);
-		}
-			
-		$newActions = $record->getCMSActions();
-		foreach ($newActions as $newAction){
-			$actions->push($newAction);
-		}
-			
-		// Find and remove action menus that have no actions.
-		if ($actions && $actions->Count()) {
-			$tabset = $actions->fieldByName('ActionMenus');
-			if ($tabset) {
-				foreach ($tabset->getChildren() as $tab) {
-					if (!$tab->getChildren()->count()) {
-						$tabset->removeByName($tab->getName());
+		
+		if($record->hasExtension('Versioned')){
+			$actions 	= $form->Actions();
+				
+			foreach ($actions as $action){
+				$actions->remove($action);
+			}
+				
+			$newActions = $record->getCMSActions();
+			foreach ($newActions as $newAction){
+				$actions->push($newAction);
+			}
+				
+			// Find and remove action menus that have no actions.
+			if ($actions && $actions->Count()) {
+				$tabset = $actions->fieldByName('ActionMenus');
+				if ($tabset) {
+					foreach ($tabset->getChildren() as $tab) {
+						if (!$tab->getChildren()->count()) {
+							$tabset->removeByName($tab->getName());
+						}
 					}
 				}
 			}
-		}
+				
+			$actionsFlattened = $actions->dataFields();
+			if($actionsFlattened) foreach($actionsFlattened as $action) $action->setUseButtonTag(true);
 			
-		$actionsFlattened = $actions->dataFields();
-		if($actionsFlattened) foreach($actionsFlattened as $action) $action->setUseButtonTag(true);
+			$form->addExtraClass('cms-edit-form');
+			$form->setActions($actions);
+		}
 		
-		$form->addExtraClass('cms-edit-form');
-		$form->setActions($actions);
 	}
 
 }
