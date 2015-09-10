@@ -10,22 +10,29 @@
  */
 class VersionedGridFieldItemRequestExtension extends Extension {
 	
-	public function updateItemEditForm($form) {
-
+	public function updateItemEditForm(Form $form) {
 		$record 	= $form->getRecord();
 		
 		if($record->hasExtension('Versioned')){
 			$actions 	= $form->Actions();
 				
-			foreach ($actions as $action){
-				$actions->remove($action);
-			}
+			if($record->ID){
+				foreach ($actions as $action){
+					$actions->remove($action);
+				}
 				
-			$newActions = $record->getCMSActions();
-			foreach ($newActions as $newAction){
-				$actions->push($newAction);
+				$newActions = $record->getCMSActions();
+				foreach ($newActions as $newAction){
+					$newAction->setForm($form);
+					$actions->push($newAction);
+				}
+			}else{
+				$actions->removeByName('action_publish');
 			}
+			
 				
+			
+			
 			// Find and remove action menus that have no actions.
 			if ($actions && $actions->Count()) {
 				$tabset = $actions->fieldByName('ActionMenus');
