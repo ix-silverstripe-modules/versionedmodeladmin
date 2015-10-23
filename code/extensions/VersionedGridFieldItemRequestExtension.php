@@ -13,7 +13,7 @@ class VersionedGridFieldItemRequestExtension extends Extension {
 	public function updateItemEditForm(Form $form) {
 		$record 	= $form->getRecord();
 		
-		if($record->hasExtension('Versioned')){
+		if($record->hasExtension('Versioned') && $record instanceof SiteTree){
 			$actions 	= $form->Actions();
 				
 			if($record->ID){
@@ -29,9 +29,6 @@ class VersionedGridFieldItemRequestExtension extends Extension {
 			}else{
 				$actions->removeByName('action_publish');
 			}
-			
-				
-			
 			
 			// Find and remove action menus that have no actions.
 			if ($actions && $actions->Count()) {
