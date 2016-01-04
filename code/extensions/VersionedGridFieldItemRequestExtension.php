@@ -10,6 +10,10 @@
  */
 class VersionedGridFieldItemRequestExtension extends Extension {
 	
+	private static $allowed_actions = array(
+		'delete'
+	);
+	
 	public function updateItemEditForm(Form $form) {
 		$record 	= $form->getRecord();
 		
@@ -28,6 +32,10 @@ class VersionedGridFieldItemRequestExtension extends Extension {
 				}
 			}else{
 				$actions->removeByName('action_publish');
+			}
+			
+			if($record->isPublished()){
+				$actions->removeByName('action_delete');
 			}
 			
 			// Find and remove action menus that have no actions.
@@ -49,6 +57,49 @@ class VersionedGridFieldItemRequestExtension extends Extension {
 			$form->setActions($actions);
 		}
 		
+	}
+	
+	public function delete($data, $form) {
+		$title = $this->owner->record->Title;
+		try {
+			if (!$this->owner->record->canDelete()) {
+				throw new ValidationException(
+					_t('GridFieldDetailForm.DeletePermissionsFailure',"No delete permissions"),0);
+			}
+
+			$this->owner->record->delete();
+		} catch(ValidationException $e) {
+			$form->sessionMessage($e->getResult()->message(), 'bad', false);
+			return $this->owner->getToplevelController()->redirectBack();
+		}
+
+		$message = sprintf(
+			_t('GridFieldDetailForm.Deleted', 'Deleted %s %s'),
+			$this->owner->record->i18n_singular_name(),
+			htmlspecialchars($title, ENT_QUOTES)
+		);
+		
+		$toplevelController = $this->owner->getToplevelController();
+		if($toplevelController && $toplevelController instanceof LeftAndMain) {
+			$backForm = $toplevelController->getEditForm();
+			$backForm->sessionMessage($message, 'good', false);
+		} else {
+			$form->sessionMessage($message, 'good', false);
+		}
+
+		//when an item is deleted, redirect to the parent controller
+		$controller = $this->owner->getToplevelController();
+		$controller->getRequest()->addHeader('X-Pjax', 'Content'); // Force a content refresh
+
+		return $controller->redirect($this->owner->getBacklink(), 302); //redirect back to admin section
+	}
+	
+	public function getToplevelController() {
+		$c = $this->owner->popupController;
+		while($c && $c instanceof GridFieldDetailForm_ItemRequest) {
+			$c = $c->getController();
+		}
+		return $c;
 	}
 
 }
