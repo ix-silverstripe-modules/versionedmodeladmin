@@ -22,7 +22,7 @@ class VersionedGridFieldItemRequestExtension extends Extension {
 				
 			if($record->ID){
 				foreach ($actions as $action){
-					$actions->remove($action);
+					if(!$action instanceof BetterButtonCustomAction) $actions->remove($action);
 				}
 				
 				$newActions = $record->getCMSActions();
