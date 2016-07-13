@@ -94,6 +94,43 @@ class VersionedGridFieldItemRequestExtension extends Extension {
 		return $controller->redirect($this->owner->getBacklink(), 302); //redirect back to admin section
 	}
 	
+	public function archive($data, $form) {
+		
+		if(!$this->owner->record || !$this->owner->record->exists()) {
+			throw new SS_HTTPResponse_Exception("Bad record ID", 404);
+		}
+		
+		if(!$this->owner->record->canArchive()) {
+			return Security::permissionFailure();
+		}
+		
+		$title = $this->owner->record->Title;
+	
+		// Archive record
+		$this->owner->record->doArchive();
+		
+		$message = sprintf(
+			_t('GridFieldDetailForm.Deleted', 'Deleted %s %s'),
+			$this->owner->record->i18n_singular_name(),
+			htmlspecialchars($title, ENT_QUOTES)
+		);
+		
+		$toplevelController = $this->owner->getToplevelController();
+		if($toplevelController && $toplevelController instanceof LeftAndMain) {
+			$backForm = $toplevelController->getEditForm();
+			$backForm->sessionMessage($message, 'good', false);
+		} else {
+			$form->sessionMessage($message, 'good', false);
+		}
+		
+		
+		//when an item is deleted, redirect to the parent controller
+		$controller = $this->owner->getToplevelController();
+		$controller->getRequest()->addHeader('X-Pjax', 'Content'); // Force a content refresh
+		
+		return $controller->redirect($this->owner->getBacklink(), 302); //redirect back to admin section
+	}
+	
 	public function getToplevelController() {
 		$c = $this->owner->popupController;
 		while($c && $c instanceof GridFieldDetailForm_ItemRequest) {
