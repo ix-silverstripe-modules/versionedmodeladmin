@@ -11,8 +11,7 @@
 class VersionedGridFieldItemRequestExtension extends Extension {
 	
 	private static $allowed_actions = array(
-		'delete',
-		'archive'
+		'delete'
 	);
 	
 	public function updateItemEditForm(Form $form) {
@@ -138,42 +137,6 @@ class VersionedGridFieldItemRequestExtension extends Extension {
 			$c = $c->getController();
 		}
 		return $c;
-	}
-	
-	public function archive($data, $form) {
-	    if(!$this->owner->record->canArchive()) {
-	        throw new ValidationException(
-	            _t('GridFieldDetailForm.DeletePermissionsFailure',"No archive permissions"),0);
-	    }
-	    
-	    // Archive record
-	    try {
-	        $this->owner->record->doArchive();
-	    } catch(ValidationException $e) {
-	        $form->sessionMessage($e->getResult()->message(), 'bad', false);
-	        return $this->owner->getToplevelController()->redirectBack();
-	    }
-	    
-	    
-	    $message = sprintf(
-	        _t('GridFieldDetailForm.Archived', 'Archived %s %s'),
-	        $this->owner->record->i18n_singular_name(),
-	        htmlspecialchars($title, ENT_QUOTES)
-	        );
-	    
-	    $toplevelController = $this->owner->getToplevelController();
-	    if($toplevelController && $toplevelController instanceof LeftAndMain) {
-	        $backForm = $toplevelController->getEditForm();
-	        $backForm->sessionMessage($message, 'good', false);
-	    } else {
-	        $form->sessionMessage($message, 'good', false);
-	    }
-	    
-	    //when an item is deleted, redirect to the parent controller
-	    $controller = $this->owner->getToplevelController();
-	    $controller->getRequest()->addHeader('X-Pjax', 'Content'); // Force a content refresh
-	    
-	    return $controller->redirect($this->owner->getBacklink(), 302); //redirect back to admin section
 	}
 
 }
