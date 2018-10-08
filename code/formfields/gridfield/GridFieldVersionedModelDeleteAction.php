@@ -1,6 +1,6 @@
 <?php
 
-namespace SilverStripe\Internetrix\VersionedModelAdmin;
+namespace Internetrix\VersionedModelAdmin;
 
 use SilverStripe\Forms\GridField\GridFieldDeleteAction;
 use SilverStripe\Forms\GridField\GridField;

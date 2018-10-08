@@ -21,7 +21,7 @@
  *	
  */
 
-namespace SilverStripe\Internetrix\VersionedModelAdmin;
+namespace Internetrix\VersionedModelAdmin;
 
 use SilverStripe\Versioned\Versioned;
 use SilverStripe\Forms\DropdownField;

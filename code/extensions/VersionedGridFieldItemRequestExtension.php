@@ -9,7 +9,7 @@
  * @package versionedmodeladmin
  */
 
-namespace SilverStripe\Internetrix\VersionedModelAdmin;
+namespace Internetrix\VersionedModelAdmin;
 
 use SilverStripe\Core\Extension;
 use SilverStripe\CMS\Model\SiteTree;
