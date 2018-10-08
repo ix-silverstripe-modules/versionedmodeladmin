@@ -20,6 +20,13 @@
  *
  *	
  */
+
+namespace SilverStripe\Internetrix\VersionedModelAdmin;
+
+use SilverStripe\Versioned\Versioned;
+use SilverStripe\Forms\DropdownField;
+use SilverStripe\Admin\ModelAdmin;
+
 abstract class VersionedModelAdmin extends ModelAdmin {
 
 	public function init(){

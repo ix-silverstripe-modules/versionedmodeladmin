@@ -4,6 +4,6 @@ Before: betterbuttons
 Only:
     moduleexists: betterbuttons
 ---
-GridFieldDetailForm_ItemRequest:
+SilverStripe\Forms\GridField\GridFieldDetailForm_ItemRequest:
   extensions:
     - VersionedGridFieldItemRequestExtension

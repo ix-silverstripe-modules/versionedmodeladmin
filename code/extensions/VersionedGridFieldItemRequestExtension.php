@@ -8,6 +8,18 @@
  * @author  guy.watson@internetrix.com.au
  * @package versionedmodeladmin
  */
+
+namespace SilverStripe\Internetrix\VersionedModelAdmin;
+
+use SilverStripe\Core\Extension;
+use SilverStripe\CMS\Model\SiteTree;
+use SilverStripe\Forms\Form;
+use SilverStripe\ORM\ValidationException;
+use SilverStripe\Security\Security;
+use SilverStripe\Forms\GridField\GridFieldDetailForm_ItemRequest;
+use UncleCheese\BetterButtons\Actions\BetterButtonCustomAction;
+
+
 class VersionedGridFieldItemRequestExtension extends Extension {
 	
 	private static $allowed_actions = array(

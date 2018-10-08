@@ -1,7 +1,8 @@
 {
-	"name" : "silverstripe-modules/versionedmodeladmin",
+	"name" : "internetrix/silverstripe-versionedmodeladmin",
 	"description" : "Extension for versioned model admin",
-	"type" : "silverstripe-module",
+	"type" : "silverstripe-vendormodule",
+	"homepage": "https://gitlab.internetrix.net/silverstripe-modules/versionedmodeladmin",
 	"keywords" : [
 		"silverstripe",
 		"versioned",
@@ -13,10 +14,17 @@
 		}
 	],
 	"require" : {
-		"silverstripe/framework" : "~3.1"
+		"silverstripe/framework" : "^4",
+		"silverstripe/cms" : "^4"
 	},
 	"extra" : {
 		"installer-name" : "versionedmodeladmin"
 	},
+	"autoload": {
+		"psr-4": {
+			"Internetrix\\VersionedModelAdmin\\": "src/"
+		}
+	},
+
 	"minimum-stability" : "dev"
 }
