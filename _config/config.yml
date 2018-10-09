@@ -6,4 +6,4 @@ Only:
 ---
 SilverStripe\Forms\GridField\GridFieldDetailForm_ItemRequest:
   extensions:
-    - VersionedGridFieldItemRequestExtension
+    - Internetrix\VersionedModelAdmin\VersionedGridFieldItemRequestExtension

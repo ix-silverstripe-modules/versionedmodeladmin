@@ -18,6 +18,8 @@ use SilverStripe\ORM\ValidationException;
 use SilverStripe\Security\Security;
 use SilverStripe\Forms\GridField\GridFieldDetailForm_ItemRequest;
 use UncleCheese\BetterButtons\Actions\BetterButtonCustomAction;
+use SilverStripe\Admin\LeftAndMain;
+use SilverStripe\Control\HTTPResponse_Exception;
 
 
 class VersionedGridFieldItemRequestExtension extends Extension {
@@ -109,7 +111,7 @@ class VersionedGridFieldItemRequestExtension extends Extension {
 	public function archive($data, $form) {
 		
 		if(!$this->owner->record || !$this->owner->record->exists()) {
-			throw new SS_HTTPResponse_Exception("Bad record ID", 404);
+			throw new HTTPResponse_Exception("Bad record ID", 404);
 		}
 		
 		if(!$this->owner->record->canArchive()) {
