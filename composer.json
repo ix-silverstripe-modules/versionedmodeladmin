@@ -8,7 +8,7 @@
 		"versioned",
 		"modeladmin"
 	],
-    "license": "BSD-3-Clause",
+	"license": "BSD-3-Clause",
 	"authors" : [{
 			"name" : "Stewart Wilson",
 			"email" : "stewart.wilson@internetrix.com.au"
@@ -25,6 +25,6 @@
 			"Internetrix\\VersionedModelAdmin\\": "src/"
 		}
 	},
-    "prefer-stable": true,
+	"prefer-stable": true,
 	"minimum-stability" : "dev"
 }
