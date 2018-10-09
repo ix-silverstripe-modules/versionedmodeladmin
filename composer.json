@@ -1,22 +1,30 @@
 {
-	"name" : "silverstripe-modules/versionedmodeladmin",
+	"name" : "internetrix/silverstripe-versionedmodeladmin",
 	"description" : "Extension for versioned model admin",
-	"type" : "silverstripe-module",
+	"type" : "silverstripe-vendormodule",
+	"homepage": "https://gitlab.internetrix.net/silverstripe-modules/versionedmodeladmin",
 	"keywords" : [
 		"silverstripe",
 		"versioned",
 		"modeladmin"
 	],
+    "license": "BSD-3-Clause",
 	"authors" : [{
 			"name" : "Stewart Wilson",
 			"email" : "stewart.wilson@internetrix.com.au"
 		}
 	],
 	"require" : {
-		"silverstripe/framework" : "~3.1"
+		"silverstripe/framework" : "^4.0"
 	},
 	"extra" : {
 		"installer-name" : "versionedmodeladmin"
 	},
+	"autoload": {
+		"psr-4": {
+			"Internetrix\\VersionedModelAdmin\\": "src/"
+		}
+	},
+    "prefer-stable": true,
 	"minimum-stability" : "dev"
 }

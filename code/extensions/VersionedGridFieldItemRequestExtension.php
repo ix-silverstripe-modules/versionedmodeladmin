@@ -8,6 +8,20 @@
  * @author  guy.watson@internetrix.com.au
  * @package versionedmodeladmin
  */
+
+namespace Internetrix\VersionedModelAdmin;
+
+use SilverStripe\Core\Extension;
+use SilverStripe\CMS\Model\SiteTree;
+use SilverStripe\Forms\Form;
+use SilverStripe\ORM\ValidationException;
+use SilverStripe\Security\Security;
+use SilverStripe\Forms\GridField\GridFieldDetailForm_ItemRequest;
+use UncleCheese\BetterButtons\Actions\BetterButtonCustomAction;
+use SilverStripe\Admin\LeftAndMain;
+use SilverStripe\Control\HTTPResponse_Exception;
+
+
 class VersionedGridFieldItemRequestExtension extends Extension {
 	
 	private static $allowed_actions = array(
@@ -97,7 +111,7 @@ class VersionedGridFieldItemRequestExtension extends Extension {
 	public function archive($data, $form) {
 		
 		if(!$this->owner->record || !$this->owner->record->exists()) {
-			throw new SS_HTTPResponse_Exception("Bad record ID", 404);
+			throw new HTTPResponse_Exception("Bad record ID", 404);
 		}
 		
 		if(!$this->owner->record->canArchive()) {

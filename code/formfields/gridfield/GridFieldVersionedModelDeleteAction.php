@@ -1,4 +1,13 @@
 <?php
+
+namespace Internetrix\VersionedModelAdmin;
+
+use SilverStripe\Forms\GridField\GridFieldDeleteAction;
+use SilverStripe\Forms\GridField\GridField;
+use SilverStripe\ORM\ValidationException;
+use SilverStripe\Security\Member;
+use SilverStripe\CMS\Model\SiteTree;
+
 class GridFieldVersionedModelDeleteAction extends GridFieldDeleteAction {
 
 	/**
