@@ -33,7 +33,7 @@ abstract class VersionedModelAdmin extends ModelAdmin {
 		
 		parent::init();
 		
-		Versioned::reading_stage("Stage");
+		Versioned::set_stage("Stage");
 	}
 	
 	
