@@ -20,6 +20,9 @@
 	"extra" : {
 		"installer-name" : "versionedmodeladmin"
 	},
+	"replace": {
+        "silverstripe-modules/versionedmodeladmin": "self.version"
+    },
 	"autoload": {
 		"psr-4": {
 			"Internetrix\\VersionedModelAdmin\\": "src/"
